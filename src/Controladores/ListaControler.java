@@ -1,5 +1,6 @@
 package Controladores;
 
+import Modelos.Clientes;
 import Modelos.ListaModel;
 import Vistas.frmListas;
 import java.awt.event.ActionEvent;
@@ -28,9 +29,16 @@ public class ListaControler implements ActionListener{
          this.ModeloLista.EncolarCliente(this.VistaLista.txtApellidos.getText(),
                  this.VistaLista.txtNombre.getText());
          
-        //MOSTRAR LOS DATOS EN EL TEXT AREA
-         Queue ListaLocal = this.ModeloLista.ListarClientes();
-         this.VistaLista.txtListaClientes.setText(ListaLocal.peek().toString());
+         //TRAE LA LISTA CLIENTES DESDE EL MODELO
+         Queue<Clientes> listalocal = this.ModeloLista.ListarClientes();
+         
+         //RECORRE LA LISTA Y ASIGNA A TEXT AREA
+            String Cadena = "";
+         for(Clientes MiListaClientes : listalocal){
+             Cadena = Cadena + MiListaClientes.getApellidos()+" "+MiListaClientes.getNombres()+"\n";
+             this.VistaLista.txtListaClientes.setText(Cadena);
+         }
+         
      }        
     }
 }
